@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Меню Xeeyva Cafe JM</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #0d1b2a;
+        color: #ffffff;
+        padding: 15px;
+      }
+
+      @media (min-width: 1025px) {
+        .mobile-only {
+          display: none;
+        }
+        .desktop-message {
+          display: block;
+          text-align: center;
+          padding: 50px;
+          font-size: 22px;
+          color: #ffffff;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .mobile-only {
+          display: block;
+        }
+        .desktop-message {
+          display: none;
+        }
+
+        h1 {
+          text-align: center;
+          color: #e0e1dd;
+          margin-bottom: 10px;
+        }
+
+        .logo-block {
+          text-align: center;
+          margin: 20px;
+        }
+
+        .logo-img {
+          width: 100px;
+          height: auto;
+          margin: 10px auto;
+        }
+
+        .cafe-name {
+          font-size: 22px;
+          font-weight: bold;
+          color: #e0e1dd;
+        }
+
+        .owner-block {
+          text-align: center;
+          margin: 15px 0;
+        }
+
+        .owner-img {
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 3px solid #e0e1dd;
+          box-shadow: 0 2px 6px rgba(255, 255, 255, 0.2);
+        }
+
+        .owner-name {
+          font-size: 14px;
+          color: #cccccc;
+          margin-top: 5px;
+        }
+
+        .category-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-bottom: 20px;
+        }
+
+        button {
+          padding: 15px;
+          font-size: 18px;
+          background-color: #1b263b;
+          color: #e0e1dd;
+          border: 1px solid #e0e1dd;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        button:hover {
+          background-color: #415a77;
+        }
+
+        button:active {
+          transform: scale(0.97);
+        }
+
+        .menu {
+          display: none;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 15px;
+          animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Улучшенные карточки продуктов */
+        .item {
+          background: linear-gradient(145deg, #243b55, #1b263b);
+          padding: 15px;
+          border-radius: 16px;
+          text-align: center;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6),
+            inset 0 -2px 4px rgba(255, 255, 255, 0.1);
+          color: #e0e1dd;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          cursor: default;
+
+          /* фиксированный размер карточек */
+          height: 300px;
+          user-select: none;
+        }
+
+        .item:hover {
+          transform: translateY(-5px) scale(1.05);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8),
+            inset 0 -2px 8px rgba(255, 255, 255, 0.15);
+        }
+
+        .item img {
+          width: 100%;
+          height: 140px;
+          object-fit: cover;
+          border-radius: 12px;
+          margin-bottom: 12px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+          pointer-events: none;
+          user-select: none;
+        }
+
+        .item p {
+          font-weight: 600;
+          font-size: 18px;
+          margin-bottom: 14px;
+          color: #f0f0e6;
+
+          /* чтобы текст был ровно под картинкой, с фиксированной высотой */
+          flex-grow: 0;
+          min-height: 48px; /* примерно 2 строки */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          user-select: none;
+        }
+
+        .item button {
+          background-color: #415a77;
+          color: #e0e1dd;
+          border: none;
+          padding: 12px 0;
+          font-size: 16px;
+          border-radius: 12px;
+          font-weight: 600;
+          box-shadow: 0 4px 12px rgba(65, 90, 119, 0.6);
+          transition: background-color 0.3s ease, box-shadow 0.3s ease;
+          cursor: pointer;
+          user-select: none;
+
+          /* фиксированная высота кнопки, чтобы все одинаково */
+          height: 42px;
+          width: 100%;
+        }
+
+        .item button:hover {
+          background-color: #5a7abf;
+          box-shadow: 0 6px 20px rgba(90, 122, 191, 0.8);
+        }
+
+        .item button:active {
+          transform: scale(0.95);
+        }
+
+        .cart {
+          margin-top: 20px;
+          background: #1b263b;
+          padding: 10px;
+          border-radius: 10px;
+          animation: fadeIn 0.4s ease-in-out;
+          color: #fff;
+        }
+
+        .cart-item {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 5px;
+          animation: fadeInLeft 0.3s ease;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="desktop-message">Откройте сайт с телефона или планшета 📱</div>
+
+    <div class="mobile-only">
+      <div class="logo-block">
+        <p class="cafe-name">Xeeyva Cafe JM</p>
+      </div>
+
+      <div class="category-buttons">
+        <button onclick="showCategory('desserts')">Десерты</button>
+        <button onclick="showCategory('drinks')">Напитки</button>
+      </div>
+
+      <div id="menu" class="menu"></div>
+
+      <div class="cart">
+        <h2>Корзина</h2>
+        <div id="cart"></div>
+        <button onclick="clearCart()">Очистить корзину</button>
+      </div>
+    </div>
+
+    <script>
+      const menuItems = [
+        {
+          name: "Чизкейк",
+          category: "desserts",
+          img: "https://the-chef.ru/upload/iblock/80b/80befba0a285715d12ba9f1833315b90.jpg",
+        },
+        {
+          name: "Медовик фисташковый",
+          category: "desserts",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHvRxdk1KhC3r_Wv3Yv8YvYvov1mo9JHMHag&s",
+        },
+        {
+          name: "Матильда",
+          category: "desserts",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ8yA1Gkbm90RI_XVL9vOcHejxzd1omF203g&s",
+        },
+
+        {
+          name: "зеленый чай",
+          category: "drinks",
+          img: "https://i.pinimg.com/736x/11/24/f9/1124f956180bcb20fdbabfc0724d46f9.jpg",
+        },
+        {
+          name: "Черный чай",
+          category: "drinks",
+          img: "https://i.pinimg.com/736x/a6/74/09/a67409e972cf0480b59de66e5e95563c.jpg",
+        },
+        {
+          name: "ягодный чай",
+          category: "drinks",
+          img: "https://i.pinimg.com/736x/5d/4b/ff/5d4bff14119129fcc8156912cadf15f4.jpg",
+        },
+        {
+          name: "Лимон чай",
+          category: "drinks",
+          img: "https://www.sports.kz/upload/2025-01/677e0e936cfbe.jpg",
+        },
+
+        {
+          name: "Манго марокуйя лимонад",
+          category: "drinks",
+          img: "https://mandarin.su/upload/http_image_tmp/1e29843a149fc8b4c0cf9be9e1d45da0.webp",
+        },
+        {
+          name: "Ягодный микс лимонад",
+          category: "drinks",
+          img: "https://radiocafe.ge/images/products/images/products/61/berry-lemonade.jpg",
+        },
+        {
+          name: "Клубничный лимонад",
+          category: "drinks",
+          img: "https://elle.ua/upload/image/richard-brutyo-rxp4tr0isg0-unsplash.jpg",
+        },
+        {
+          name: "Класичесский лимонад",
+          category: "drinks",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnhj8eyQzhF3BkJtUH7JKBXAnIwI1U-uWh_g&s",
+        },
+        {
+          name: "Капучино",
+          category: "drinks",
+          img: "https://i.pinimg.com/736x/97/71/4a/97714a280e8f8e1240ab0b957521ad76.jpg",
+        },
+        {
+          name: "Латте",
+          category: "drinks",
+          img: "https://azbyka.ru/recept/wp-content/uploads/2021/01/close-up-tasty-macchiato-with-milk-table.jpg",
+        },
+        {
+          name: "Американо",
+          category: "drinks",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtOs5jMlB8lLHizwwA-DEsvcINyJynNzkIaA&s",
+        },
+        {
+          name: "Эспрессо",
+          category: "drinks",
+          img: "https://galaktika29.ru/upload/iblock/db6/k0ta8ki954k0l5qrh3rt4214nfa40rep.jpg",
+        },
+        {
+          name: "Флэт вайт",
+          category: "drinks",
+          img: "https://jz9czo0xs6.ru.scalesta-cdn.com/8UYkjvBnoAKpQopuBw2FvT3nsD0=/filters:format(webp)/https%3A%2F%2Fcomplexbar.ru%2Fimages%2Fblog%2F243%2Fflat_white_mint_brauni.png",
+        },
+        {
+          name: "Американо с молоком",
+          category: "drinks",
+          img: "https://coffee-static.storage.yandexcloud.net/files/shares/data/blog/amerikano/image5.jpg",
+        },
+      ];
+
+      let cart = {};
+
+      function showCategory(category) {
+        const menuDiv = document.getElementById("menu");
+        menuDiv.style.display = "grid";
+        menuDiv.innerHTML = "";
+
+        const filtered = menuItems.filter((item) => item.category === category);
+        filtered.forEach((item, index) => {
+          const div = document.createElement("div");
+          div.classList.add("item");
+          div.style.animationDelay = `${index * 100}ms`;
+          div.innerHTML = `
+            <img src="${item.img}" alt="${item.name}">
+            <p>${item.name}</p>
+            <button onclick="addToCart('${item.name}')">Добавить</button>
+          `;
+          menuDiv.appendChild(div);
+        });
+      }
+
+      function addToCart(itemName) {
+        cart[itemName] = (cart[itemName] || 0) + 1;
+        renderCart();
+      }
+
+      function renderCart() {
+        const cartDiv = document.getElementById("cart");
+        cartDiv.innerHTML = Object.entries(cart)
+          .map(
+            ([name, qty]) => `
+            <div class="cart-item">
+              <span>${name} x ${qty}</span>
+              <button onclick="removeFromCart('${name}')">✖</button>
+            </div>
+          `
+          )
+          .join("");
+      }
+
+      function removeFromCart(name) {
+        if (--cart[name] <= 0) delete cart[name];
+        renderCart();
+      }
+
+      function clearCart() {
+        cart = {};
+        renderCart();
+      }
+    </script>
+  </body>
+</html>
